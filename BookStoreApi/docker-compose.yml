@@ -1,4 +1,17 @@
+version: '3.9'
 services:
+  api:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: bookstore_api
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=booksdb;Username=postgres;Password=postgres
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
   postgres:
     image: postgres:14
     container_name: postgres_books
